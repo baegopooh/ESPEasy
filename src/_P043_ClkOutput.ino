@@ -1,6 +1,9 @@
 //#######################################################################################################
 //#################################### Plugin 043: Clock Output #########################################
 //#######################################################################################################
+#ifdef PLUGIN_BUILD_TESTING
+
+
 #define PLUGIN_043
 #define PLUGIN_ID_043         43
 #define PLUGIN_NAME_043       "Output - Clock"
@@ -119,3 +122,4 @@ boolean Plugin_043(byte function, struct EventStruct *event, String& string)
   }
   return success;
 }
+#endif

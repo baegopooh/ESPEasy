@@ -6,6 +6,7 @@
 // this plugin is based on the sparkfun library
 // written based on version 1.1.0 from https://github.com/sparkfun/SparkFun_TSL2561_Arduino_Library
 
+#ifdef PLUGIN_BUILD_TESTING
 
 #define PLUGIN_015
 #define PLUGIN_ID_015        15
@@ -441,3 +442,4 @@ boolean Plugin_015(byte function, struct EventStruct *event, String& string)
   }
   return success;
 }
+#endif

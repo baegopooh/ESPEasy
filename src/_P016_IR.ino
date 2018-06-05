@@ -6,6 +6,8 @@
 #ifdef PLUGIN_BUILD_NORMAL
 
 #include <IRremoteESP8266.h>
+#include <IRrecv.h>
+#include <IRUtils.h>
 IRrecv *irReceiver;
 decode_results results;
 
@@ -72,10 +74,16 @@ boolean Plugin_016(byte function, struct EventStruct *event, String& string)
       {
         if (irReceiver->decode(&results))
         {
+          if (results.overflow){
+            String log=F("WARNING: IR code is too big for buffer");
+            addLog(LOG_LEVEL_INFO, log);}
           unsigned long IRcode = results.value;
           irReceiver->resume();
           UserVar[event->BaseVarIndex] = (IRcode & 0xFFFF);
           UserVar[event->BaseVarIndex + 1] = ((IRcode >> 16) & 0xFFFF);
+          // String log= resultToTimingInfo(&results);
+          // addLog(LOG_LEVEL_INFO, log);
+
           String log = F("IR   : Code ");
           log += String(IRcode, HEX);
           log += F(" - Type: ");

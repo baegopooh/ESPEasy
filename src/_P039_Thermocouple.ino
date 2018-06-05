@@ -33,6 +33,8 @@
 // MAX31855 - Cold-Junction Compensated Thermocouple-to-Digital Converter   (-270°C to +1800°C)
 //            https://cdn-shop.adafruit.com/datasheets/MAX31855.pdf
 
+#ifdef PLUGIN_BUILD_TESTING
+
 #include <SPI.h>
 
 #define PLUGIN_039
@@ -262,3 +264,4 @@ double readMax31855()
     return NAN;
   }
 }
+#endif

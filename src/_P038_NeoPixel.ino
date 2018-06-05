@@ -14,6 +14,7 @@
 // (2): Set all LED to specified color (eg. NeoPixelAll,255,255,255)
 //		If you use 'NeoPixelAll' this will off all LED (like NeoPixelAll,0,0,0)
 // (3): Set color LED between <start led nr> and <stop led nr> to specified color (eg. NeoPixelLine,1,6,255,255,255)
+#ifdef PLUGIN_BUILD_TESTING
 
 #include <Adafruit_NeoPixel.h>
 Adafruit_NeoPixel *Plugin_038_pixels;
@@ -141,3 +142,4 @@ boolean Plugin_038(byte function, struct EventStruct *event, String& string)
   }
   return success;
 }
+#endif

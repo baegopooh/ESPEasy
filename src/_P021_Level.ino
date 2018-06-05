@@ -1,8 +1,9 @@
 //#######################################################################################################
 //#################################### Plugin 021: Level Control ########################################
 //#######################################################################################################
+#ifdef PLUGIN_BUILD_TESTING
 
-#define PLUGIN_021
+// #define PLUGIN_021
 #define PLUGIN_ID_021        21
 #define PLUGIN_NAME_021       "Regulator - Level Control"
 #define PLUGIN_VALUENAME1_021 "Output"
@@ -137,3 +138,4 @@ boolean Plugin_021(byte function, struct EventStruct *event, String& string)
   }
   return success;
 }
+#endif

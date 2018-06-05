@@ -9,7 +9,7 @@
 //Device pin 1 = RX
 //Device pin 2 = TX
 
-#ifdef PLUGIN_BUILD_TESTING
+#ifdef PLUGIN_BUILD_DISABLED
 
 #include <ESPeasySoftwareSerial.h>
 #define PLUGIN_071

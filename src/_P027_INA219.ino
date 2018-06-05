@@ -1,6 +1,7 @@
 //#######################################################################################################
 //######################### Plugin 027: INA219 DC Voltage/Current sensor ################################
 //#######################################################################################################
+#ifdef PLUGIN_BUILD_TESTING
 
 #define PLUGIN_027
 #define PLUGIN_ID_027         27
@@ -426,3 +427,4 @@ float Plugin_027_getCurrent_mA(uint8_t i2caddr) {
   valueDec /= _ina219_data[idx].currentDivider_mA;
   return valueDec;
 }
+#endif

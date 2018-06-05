@@ -2,6 +2,7 @@
 //################ Plugin 032 MS5611 (GY-63) I2C Temp/Barometric Pressure Sensor  #######################
 //#######################################################################################################
 // This sketch is based on https://github.com/Schm1tz1/arduino-ms5xxx
+#ifdef PLUGIN_BUILD_TESTING
 
 #define PLUGIN_032
 #define PLUGIN_ID_032        32
@@ -252,3 +253,4 @@ void Plugin_032_readout() {
 double Plugin_032_pressureElevation(double atmospheric, int altitude) {
   return atmospheric / pow(1.0 - (altitude/44330.0), 5.255);
 }
+#endif

@@ -1,8 +1,9 @@
 //#######################################################################################################
 //#################################### Plugin 022: PCA9685 ##############################################
 //#######################################################################################################
+#ifdef PLUGIN_BUILD_TESTING
 
-#define PLUGIN_022
+// #define PLUGIN_022
 #define PLUGIN_ID_022         22
 #define PLUGIN_NAME_022       "Extra IO - PCA9685"
 #define PLUGIN_VALUENAME1_022 "PWM"
@@ -117,3 +118,4 @@ void Plugin_022_initialize()
   Plugin_022_writeRegister(PCA9685_MODE2, (byte)0x10); // set to output
   Plugin_022_init = true;
 }
+#endif

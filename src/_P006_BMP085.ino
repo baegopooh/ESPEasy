@@ -1,7 +1,7 @@
 //#######################################################################################################
 //######################## Plugin 006 BMP0685 I2C Barometric Pressure Sensor  ###########################
 //#######################################################################################################
-
+#ifdef PLUGIN_BUILD_TESTING
 #define PLUGIN_006
 #define PLUGIN_ID_006        6
 #define PLUGIN_NAME_006       "Environment - BMP085/180"
@@ -287,3 +287,4 @@ float Plugin_006_pressureElevation(float atmospheric, int altitude) {
 /*********************************************************************/
   return atmospheric / pow(1.0 - (altitude/44330.0), 5.255);
 }
+#endif

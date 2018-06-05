@@ -4,6 +4,7 @@
 #ifdef PLUGIN_BUILD_NORMAL
 
 #include <IRremoteESP8266.h>
+#include <IRsend.h>
 IRsend *Plugin_035_irSender;
 
 #define PLUGIN_035
@@ -59,6 +60,8 @@ boolean Plugin_035(byte function, struct EventStruct *event, String& string)
         String IrType;
         unsigned long IrCode=0;
         unsigned int IrBits=0;
+        unsigned int Temper=0;
+        // unsigned int temp_Command=0
         //char log[120];
 
         char command[120];
@@ -82,7 +85,7 @@ boolean Plugin_035(byte function, struct EventStruct *event, String& string)
 
           if (IrType.equalsIgnoreCase("RAW")) {
             String IrRaw;
-            unsigned int IrHz=0;
+            unsigned short IrHz=0;
             unsigned int IrPLen=0;
             unsigned int IrBLen=0;
 
@@ -107,8 +110,8 @@ boolean Plugin_035(byte function, struct EventStruct *event, String& string)
             printWebString += IrBLen;
             printWebString += F("<BR>");
 
-            unsigned int buf[200];
-            unsigned int idx = 0;
+            unsigned short buf[200];
+            unsigned short idx = 0;
             unsigned int c0 = 0; //count consecutives 0s
             unsigned int c1 = 0; //count consecutives 1s
 
@@ -198,14 +201,25 @@ boolean Plugin_035(byte function, struct EventStruct *event, String& string)
             if (GetArgv(command, TmpStr1, 2)) IrType = TmpStr1;
             if (GetArgv(command, TmpStr1, 3)) IrCode = strtoul(TmpStr1, NULL, 16); //(long) TmpStr1
             if (GetArgv(command, TmpStr1, 4)) IrBits = str2int(TmpStr1);
+            if (GetArgv(command, TmpStr1, 5)) Temper = str2int(TmpStr1);
 
-            if (IrType.equalsIgnoreCase(F("NEC"))) Plugin_035_irSender->sendNEC(IrCode, IrBits);
-            if (IrType.equalsIgnoreCase(F("JVC"))) Plugin_035_irSender->sendJVC(IrCode, IrBits, 2);
-            if (IrType.equalsIgnoreCase(F("RC5"))) Plugin_035_irSender->sendRC5(IrCode, IrBits);
-            if (IrType.equalsIgnoreCase(F("RC6"))) Plugin_035_irSender->sendRC6(IrCode, IrBits);
-            if (IrType.equalsIgnoreCase(F("SAMSUNG"))) Plugin_035_irSender->sendSAMSUNG(IrCode, IrBits);
-            if (IrType.equalsIgnoreCase(F("SONY"))) Plugin_035_irSender->sendSony(IrCode, IrBits);
-            if (IrType.equalsIgnoreCase(F("PANASONIC"))) Plugin_035_irSender->sendPanasonic(IrBits, IrCode);
+            if (IrType.equalsIgnoreCase("NEC")) Plugin_035_irSender->sendNEC(IrCode, IrBits);
+            if (IrType.equalsIgnoreCase("JVC")) Plugin_035_irSender->sendJVC(IrCode, IrBits, 2);
+            if (IrType.equalsIgnoreCase("RC5")) Plugin_035_irSender->sendRC5(IrCode, IrBits);
+            if (IrType.equalsIgnoreCase("RC6")) Plugin_035_irSender->sendRC6(IrCode, IrBits);
+            if (IrType.equalsIgnoreCase("SAMSUNG")) Plugin_035_irSender->sendSAMSUNG(IrCode, IrBits);
+            if (IrType.equalsIgnoreCase("SONY")) Plugin_035_irSender->sendSony(IrCode, IrBits);
+            if (IrType.equalsIgnoreCase("PANASONIC")) Plugin_035_irSender->sendPanasonic(IrBits, IrCode);
+            if (IrType.equalsIgnoreCase("LG")) Plugin_035_irSender->sendLG(IrCode, IrBits);
+            if (IrType.equalsIgnoreCase("LG_w_temp")) {
+              IrCode &=  0xffff0f0;   //Remove Temperature, Checksum
+              IrCode |=  (((Temper < 15) ? 0 : Temper - 15) & 0xF)<<8;
+              unsigned int temp_Command = (IrCode >> 4) & 0xffff; //Remove checksum(LSB) and address(MSB, 8bit)
+              IrCode |=  (((temp_Command >> 12) + ((temp_Command >> 8) & 0xF) + ((temp_Command >> 4) & 0xF) +
+                        (temp_Command & 0xF)) & 0xF);
+              Plugin_035_irSender->sendLG(IrCode, IrBits);
+            }
+
           }
 
           addLog(LOG_LEVEL_INFO, F("IRTX :IR Code Sent"));

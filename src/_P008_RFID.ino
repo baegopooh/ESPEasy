@@ -1,7 +1,7 @@
 //#######################################################################################################
 //################################# Plugin 008: Wiegand RFID Tag Reader #################################
 //#######################################################################################################
-
+#ifdef PLUGIN_BUILD_TESTING
 #define PLUGIN_008
 #define PLUGIN_ID_008         8
 #define PLUGIN_NAME_008       "RFID - Wiegand"
@@ -176,3 +176,4 @@ void Plugin_008_interrupt2()
   Plugin_008_keyBuffer = Plugin_008_keyBuffer << 1;     // Left shift the number (effectively multiplying by 2)
   Plugin_008_bitCount++;           // Increment the bit count
 }
+#endif

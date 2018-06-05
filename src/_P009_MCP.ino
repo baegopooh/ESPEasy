@@ -2,6 +2,7 @@
 //#################################### Plugin 009: MCP23017 input #######################################
 //#######################################################################################################
 
+#ifdef PLUGIN_BUILD_TESTING
 #define PLUGIN_009
 #define PLUGIN_ID_009         9
 #define PLUGIN_NAME_009       "Switch input - MCP23017"
@@ -306,3 +307,4 @@ void Plugin_009_Config(byte Par1, byte Par2)
     Wire.endTransmission();
   }
 }
+#endif

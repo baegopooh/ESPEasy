@@ -10,6 +10,7 @@
 // Major work on this plugin has been done by 'Namirda'
 // Added to the main repository with some optimizations and some limitations.
 // Al long as the device is not selected, no RAM is waisted.
+#ifdef PLUGIN_BUILD_TESTING
 
 #define PLUGIN_036
 #define PLUGIN_ID_036         36
@@ -670,3 +671,4 @@ bool display_wifibars() {
   }
   return true;
 }
+#endif

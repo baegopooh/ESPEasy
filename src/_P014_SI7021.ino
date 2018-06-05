@@ -2,6 +2,7 @@
 //######################## Plugin 014 SI7021 I2C Temperature Humidity Sensor  ###########################
 //#######################################################################################################
 // 12-10-2015 Charles-Henri Hallard, see my projects and blog at https://hallard.me
+#ifdef PLUGIN_BUILD_TESTING
 
 #define PLUGIN_014
 #define PLUGIN_ID_014        14
@@ -393,3 +394,4 @@ int8_t Plugin_014_si7021_setResolution(uint8_t res)
 
   return error;
 }
+#endif

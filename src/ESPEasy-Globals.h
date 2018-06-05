@@ -10,12 +10,12 @@
 // After loading firmware, issue a 'reset' command to load the defaults.
 
 // --- Basic Config Settings ------------------------------------------------------------------------
-#define DEFAULT_NAME        "ESP_Easy"                  // Enter your device friendly name
-#define UNIT                            0                                       // Unit Number
+#define DEFAULT_NAME        "ESP_Easy"			// Enter your device friendly name
+#define UNIT				0					// Unit Number
 #define DEFAULT_DELAY       60                  // Sleep Delay in seconds
 
 // --- Wifi AP Mode (when your Wifi Network is not reachable) ----------------------------------------
-#define DEFAULT_AP_IP           192,168,4,1         // Enter IP address (comma separated) for AP (config) mode
+#define DEFAULT_AP_IP      	192,168,4,1         // Enter IP address (comma separated) for AP (config) mode
 #define DEFAULT_AP_KEY      "configesp"         // Enter network WPA key for AP (config) mode
 
 // --- Wifi Client Mode -----------------------------------------------------------------------------
@@ -27,8 +27,6 @@
 #define DEFAULT_DNS         "192.168.0.1"       // Enter your DNS
 #define DEFAULT_GW          "192.168.0.1"       // Enter your Gateway
 #define DEFAULT_SUBNET      "255.255.255.0"     // Enter your Subnet
-
-#define DEFAULT_WIFI_CONNECTION_TIMEOUT  10000  // minimum timeout in ms for WiFi to be connected.
 
 // --- Default Controller ------------------------------------------------------------------------------
 #define DEFAULT_CONTROLLER   false              // true or false enabled or disabled, set 1st controller defaults
@@ -51,29 +49,29 @@
 
 
 // --- Advanced Settings ---------------------------------------------------------------------------------
-#define DEFAULT_USE_RULES                       false   // (true|false) Enable Rules?
+#define DEFAULT_USE_RULES			false	// (true|false) Enable Rules?
 
-#define DEFAULT_MQTT_RETAIN                     false   // (true|false) Retain MQTT messages?
-#define DEFAULT_MQTT_DELAY                      1000    // Time in milliseconds to retain MQTT messages
+#define DEFAULT_MQTT_RETAIN			false	// (true|false) Retain MQTT messages?
+#define DEFAULT_MQTT_DELAY			1000	// Time in milliseconds to retain MQTT messages
 
-#define DEFAULT_USE_NTP                         false   // (true|false) Use NTP Server
-#define DEFAULT_NTP_HOST                        ""              // NTP Server Hostname
-#define DEFAULT_TIME_ZONE                       0               // Time Offset (in minutes)
-#define DEFAULT_USE_DST                         false   // (true|false) Use Daily Time Saving
+#define DEFAULT_USE_NTP				false	// (true|false) Use NTP Server
+#define DEFAULT_NTP_HOST			""		// NTP Server Hostname
+#define DEFAULT_TIME_ZONE			0		// Time Offset (in minutes)
+#define DEFAULT_USE_DST				false	// (true|false) Use Daily Time Saving
 
 #define LOG_TO_SERIAL         1
 #define LOG_TO_SYSLOG         2
 #define LOG_TO_WEBLOG         3
 #define LOG_TO_SDCARD         4
-#define DEFAULT_SYSLOG_IP                       ""                              // Syslog IP Address
-#define DEFAULT_SYSLOG_LEVEL            0                               // Syslog Log Level
-#define DEFAULT_SERIAL_LOG_LEVEL        LOG_LEVEL_INFO  // Serial Log Level
-#define DEFAULT_WEB_LOG_LEVEL           LOG_LEVEL_INFO  // Web Log Level
-#define DEFAULT_SD_LOG_LEVEL            0                               // SD Card Log Level
-#define DEFAULT_USE_SD_LOG                      false                   // (true|false) Enable Logging to the SD card
+#define DEFAULT_SYSLOG_IP			""				// Syslog IP Address
+#define DEFAULT_SYSLOG_LEVEL		0				// Syslog Log Level
+#define DEFAULT_SERIAL_LOG_LEVEL	LOG_LEVEL_INFO	// Serial Log Level
+#define DEFAULT_WEB_LOG_LEVEL		LOG_LEVEL_INFO	// Web Log Level
+#define DEFAULT_SD_LOG_LEVEL		0				// SD Card Log Level
+#define DEFAULT_USE_SD_LOG			false			// (true|false) Enable Logging to the SD card
 
-#define DEFAULT_USE_SERIAL                      true    // (true|false) Enable Logging to the Serial Port
-#define DEFAULT_SERIAL_BAUD                     115200  // Serial Port Baud Rate
+#define DEFAULT_USE_SERIAL			true	// (true|false) Enable Logging to the Serial Port
+#define DEFAULT_SERIAL_BAUD			115200	// Serial Port Baud Rate
 
 /*
 // --- Experimental Advanced Settings (NOT ACTIVES at this time) ------------------------------------
@@ -217,14 +215,7 @@
 #else
   #define DEVICES_MAX                      64
 #endif
-
-#if defined(ESP8266)
-  #define TASKS_MAX                          12 // max 12!
-#endif
-#if defined(ESP32)
-  #define TASKS_MAX                          32
-#endif
-
+#define TASKS_MAX                          12 // max 12!
 #define CONTROLLER_MAX                      3 // max 4!
 #define NOTIFICATION_MAX                    3 // max 4!
 #define VARS_PER_TASK                       4
@@ -956,13 +947,6 @@ byte lastBootCause = BOOT_CAUSE_MANUAL_REBOOT;
 
 boolean wifiSetup = false;
 boolean wifiSetupConnect = false;
-uint8_t lastBSSID[6] = {0};
-boolean wifiConnected = false;
-unsigned long wifi_connect_timer = 0;
-unsigned int wifi_connect_attempt = 0;
-uint8_t lastWiFiSettings = 0;
-
-
 
 unsigned long start = 0;
 unsigned long elapsed = 0;
@@ -978,7 +962,6 @@ uint16_t lowestRAM = 0;
 String lowestRAMfunction = "";
 
 bool shouldReboot=false;
-bool firstLoop=true;
 
 boolean activeRuleSets[RULESETS_MAX];
 

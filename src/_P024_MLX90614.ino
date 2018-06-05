@@ -3,6 +3,7 @@
 //#######################################################################################################
 
 // MyMessage *msgTemp024; // Mysensors
+#ifdef PLUGIN_BUILD_TESTING
 
 #define PLUGIN_024
 #define PLUGIN_ID_024 24
@@ -122,3 +123,4 @@ boolean Plugin_024(byte function, struct EventStruct *event, String& string)
   }
   return success;
 }
+#endif

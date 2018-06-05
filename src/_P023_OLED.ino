@@ -7,6 +7,7 @@
 //  DS Temp:[Dallas1#Temperature#R]
 //  Lux:[Lux#Lux#R]
 //  Baro:[Baro#Pressure#R]
+#ifdef PLUGIN_BUILD_NORMAL
 
 #define PLUGIN_023
 #define PLUGIN_ID_023         23
@@ -184,6 +185,14 @@ boolean Plugin_023(byte function, struct EventStruct *event, String& string)
         int argIndex = tmpString.indexOf(',');
         if (argIndex)
           tmpString = tmpString.substring(0, argIndex);
+        if (tmpString.equalsIgnoreCase(F("OLED")))
+        {
+          success = true;
+          argIndex = string.lastIndexOf(',');
+          tmpString = string.substring(argIndex + 1);
+          String newString = P023_parseTemplate(tmpString, 16);
+          Plugin_023_sendStrXY(newString.c_str(), event->Par1 - 1, event->Par2 - 1);
+        }
         if (tmpString.equalsIgnoreCase(F("OLEDCMD")))
         {
           success = true;
@@ -196,16 +205,9 @@ boolean Plugin_023(byte function, struct EventStruct *event, String& string)
           else if (tmpString.equalsIgnoreCase(F("Clear")))
             Plugin_023_clear_display();
         }
-        else if (tmpString.equalsIgnoreCase(F("OLED")))
-        {
-          success = true;
-          argIndex = string.lastIndexOf(',');
-          tmpString = string.substring(argIndex + 1);
-          String newString = P023_parseTemplate(tmpString, 16);
-          Plugin_023_sendStrXY(newString.c_str(), event->Par1 - 1, event->Par2 - 1);
-        }
         break;
       }
+
   }
   return success;
 }
@@ -489,3 +491,4 @@ static void Plugin_023_init_OLED(void)
   Plugin_023_sendcommand(0x20);            //Set Memory Addressing Mode
   Plugin_023_sendcommand(0x00);            //Set Memory Addressing Mode ab Horizontal addressing mode
 }
+#endif

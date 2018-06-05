@@ -12,6 +12,7 @@
 #include <LiquidCrystal_I2C.h>
 
 LiquidCrystal_I2C *lcd=NULL;
+#ifdef PLUGIN_BUILD_TESTING
 
 #define PLUGIN_012
 #define PLUGIN_ID_012         12
@@ -226,22 +227,7 @@ boolean Plugin_012(byte function, struct EventStruct *event, String& string)
         if (argIndex)
           tmpString = tmpString.substring(0, argIndex);
 
-        if (lcd && tmpString.equalsIgnoreCase(F("LCDCMD")))
-        {
-          success = true;
-          argIndex = string.lastIndexOf(',');
-          tmpString = string.substring(argIndex + 1);
-          if (tmpString.equalsIgnoreCase(F("Off"))){
-              lcd->noBacklight();
-          }
-          else if (tmpString.equalsIgnoreCase(F("On"))){
-              lcd->backlight();
-          }
-          else if (tmpString.equalsIgnoreCase(F("Clear"))){
-              lcd->clear();
-          }
-        }
-        else if (lcd && tmpString.equalsIgnoreCase(F("LCD")))
+        if (lcd && tmpString.equalsIgnoreCase(F("LCD")))
         {
           success = true;
           argIndex = string.lastIndexOf(',');
@@ -296,6 +282,22 @@ boolean Plugin_012(byte function, struct EventStruct *event, String& string)
           }
 
         }
+
+        if (lcd && tmpString.equalsIgnoreCase(F("LCDCMD")))
+        {
+          success = true;
+          argIndex = string.lastIndexOf(',');
+          tmpString = string.substring(argIndex + 1);
+          if (tmpString.equalsIgnoreCase(F("Off"))){
+              lcd->noBacklight();
+          }
+          else if (tmpString.equalsIgnoreCase(F("On"))){
+              lcd->backlight();
+          }
+          else if (tmpString.equalsIgnoreCase(F("Clear"))){
+              lcd->clear();
+          }
+        }
         break;
       }
 
@@ -312,3 +314,4 @@ String P012_parseTemplate(String &tmpString, byte lineSize) {
   result.replace(degree, degree_lcd);
   return result;
 }
+#endif
